@@ -5,7 +5,6 @@
 load 'data.mat';
 sliced_data = slice_dist(data,'Emin','Emax',10);
 projected_data = slice_dist(data,'Emin','Emax',1);
-saveplotlycredentials('g.ballsaii','x4Ix3c17tD6m6S9zhr16')
 %%
 x = fx(projected_data,1,1);
 y = fx(projected_data,1,3);
