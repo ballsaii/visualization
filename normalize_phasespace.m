@@ -6,16 +6,16 @@ function [xn,xpn,yn,ypn]=normalize_phasespace(dist,emit)
 i=1;
 while i<=length(dist)
     % x
-    x = dist{i}(:,1);
-    xp = dist{i}(:,2)*1000; % unit in rad
+    x = dist{i}(:,1)*10; % unit in mm
+    xp = dist{i}(:,2)*1E-3; % unit in mrad
     beta = sqrt(emit.Twiss.beta.form0.x{i});
     alpha = emit.Twiss.alpha.form0.x{i};
     xn{i} = x./sqrt(beta);
     xpn{i} = (x.*alpha + xp.*beta)./sqrt(beta);
     
     % y
-    y = dist{i}(:,3);
-    yp = dist{i}(:,4)*1000;
+    y = dist{i}(:,3)*10; % unit in mm
+    yp = dist{i}(:,4)*1E-3; % unit in mrad
     beta = sqrt(emit.Twiss.beta.form0.y{i});
     alpha = emit.Twiss.alpha.form0.y{i};
     yn{i} = y./sqrt(beta);
