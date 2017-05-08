@@ -1,9 +1,9 @@
 %% usage
-% visualize a transverse profile supporting multi-slice plot
+% visualize a transverse profile supporting no multi-slice plot
 close all;clear;clc
 % load example
 load 'data.mat';
-sliced_data = slice_dist(data,'Emin','Emax',10);
+% sliced_data = slice_dist(data,'Emin','Emax',10);
 projected_data = slice_dist(data,'Emin','Emax',1);
 %%
 x = fx(projected_data,1,1);
