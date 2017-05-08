@@ -7,7 +7,7 @@ i=1;
 while i<=length(dist)
     % x
     x = dist{i}(:,1);
-    xp = dist{i}(:,2);
+    xp = dist{i}(:,2)*1000; % unit in rad
     beta = sqrt(emit.Twiss.beta.form0.x{i});
     alpha = emit.Twiss.alpha.form0.x{i};
     xn{i} = x./sqrt(beta);
@@ -15,7 +15,7 @@ while i<=length(dist)
     
     % y
     y = dist{i}(:,3);
-    yp = dist{i}(:,4);
+    yp = dist{i}(:,4)*1000;
     beta = sqrt(emit.Twiss.beta.form0.y{i});
     alpha = emit.Twiss.alpha.form0.y{i};
     yn{i} = y./sqrt(beta);
