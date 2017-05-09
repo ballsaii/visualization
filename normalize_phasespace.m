@@ -3,19 +3,20 @@ function [xn,xpn,yn,ypn]=normalize_phasespace(dist,emit)
 % emit is the structure get from get_emit
 % xn = x/sqrt(beta)
 % xpn = (x*alpha + xp*beta)/sqrt(beta)
+% unit xn and xpn in sqrt(mm) 
 i=1;
 while i<=length(dist)
     % x
     x = dist{i}(:,1)*10; % unit in mm
-    xp = dist{i}(:,2)*1E-3; % unit in mrad
-    beta = sqrt(emit.Twiss.beta.form0.x{i});
-    alpha = emit.Twiss.alpha.form0.x{i};
+    xp = dist{i}(:,2)*1E-3; % unit in rad
+    beta = sqrt(emit.Twiss.beta.form0.x{i}); % unit in mm
+    alpha = emit.Twiss.alpha.form0.x{i}; % unit in 1
     xn{i} = x./sqrt(beta);
     xpn{i} = (x.*alpha + xp.*beta)./sqrt(beta);
     
     % y
     y = dist{i}(:,3)*10; % unit in mm
-    yp = dist{i}(:,4)*1E-3; % unit in mrad
+    yp = dist{i}(:,4)*1E-3; % unit in rad
     beta = sqrt(emit.Twiss.beta.form0.y{i});
     alpha = emit.Twiss.alpha.form0.y{i};
     yn{i} = y./sqrt(beta);
