@@ -96,6 +96,7 @@ sub1.YLabel.String = v_label;
 sub2.XLabel.String = h1_label;
 sub2.YLabel.String = v1_label;
 
+
 legend(textlg,'Location','eastoutside');
 %   test with ezplot
 %     figure;
