@@ -1,4 +1,4 @@
-function ellipse_phasespace( emit,axiss )
+function ellipse = ellipse_phasespace( emit,axiss,N )
 % usage
 % ellipse_phasespace(emit)
 % ellipse equation,  gamma*x^2 + 2*alpha*x*xp + beta*xp^2 = emit
@@ -27,6 +27,7 @@ switch axiss
 end
 
 f1 = figure;
+f1.Position = [0,50,1000,500];
 % general ellipse phase space
 sub1 = subplot(1,2,1);
 % normalized ellipse phase space
@@ -71,19 +72,19 @@ for i=1:length(alpha)
     % calculate ellipse
 %     syms t
 
-    t = linspace(0,2*pi,100);
+    t = linspace(0,2*pi,N);
     % phase space
-    x = x0+(semi_axis_a*cos(t)*cos(w)-semi_axis_b*sin(t)*sin(w));
-    xp = xp0+(semi_axis_a*cos(t)*sin(w)+semi_axis_b*sin(t)*cos(w));
+    x{i} = x0+(semi_axis_a*cos(t)*cos(w)-semi_axis_b*sin(t)*sin(w));
+    xp{i} = xp0+(semi_axis_a*cos(t)*sin(w)+semi_axis_b*sin(t)*cos(w));
     
     % normalized phase space
-    x1 = x./sqrt(beta{i});
-    xp1 = (x.*alpha{i} + xp.*beta{i})./sqrt(beta{i});
+    x1{i} = x{i}./sqrt(beta{i});
+    xp1{i} = (x{i}.*alpha{i} + xp{i}.*beta{i})./sqrt(beta{i});
     
     % plot ellipse
-    plot(sub1,x,xp,'Color',cline(i,:));
+    plot(sub1,x{i},xp{i},'Color',cline(i,:));
     hold(sub1,'on');
-    plot(sub2,x1,xp1,'Color',cline(i,:));
+    plot(sub2,x1{i},xp1{i},'Color',cline(i,:));
     hold(sub2,'on');
     
     % add legend
@@ -91,11 +92,15 @@ for i=1:length(alpha)
     
     axis equal
 end
+    % add x,y label 
 sub1.XLabel.String = h_label;
 sub1.YLabel.String = v_label;
 sub2.XLabel.String = h1_label;
 sub2.YLabel.String = v1_label;
 
+    % output in structure form
+    ellipse.geo = struct('h',{x},'v',{xp});
+    ellipse.norm = struct('h',{x1},'v',{xp1});
 
 legend(textlg,'Location','eastoutside');
 %   test with ezplot
