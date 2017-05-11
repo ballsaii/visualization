@@ -1,4 +1,4 @@
-function [xn,xpn,yn,ypn]=normalize_phasespace(dist,emit)
+function [xn,xpn,yn,ypn]=phasespace(dist,emit)
 % usage get dist to get x,xp or y,yp convert to normalized phase space
 % emit is the structure get from get_emit
 % xn = x/sqrt(beta)
