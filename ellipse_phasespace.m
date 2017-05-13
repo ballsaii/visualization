@@ -1,6 +1,8 @@
-function ellipse = ellipse_phasespace( emit,axiss,N )
+function output = ellipse_phasespace( emit,axiss,N )
 % usage
 % ellipse_phasespace(emit)
+% output.[norm,geo].[h,v]
+
 % ellipse equation,  gamma*x^2 + 2*alpha*x*xp + beta*xp^2 = emit
 % general form of ellipse ax^2+2bxy+cy^2+2dx+2fy+g=0
 
@@ -74,7 +76,8 @@ for i=1:length(alpha)
 
     t = linspace(0,2*pi,N);
     % phase space
-    x{i} = x0+(semi_axis_a*cos(t)*cos(w)-semi_axis_b*sin(t)*sin(w));
+    x{i} = x0+
+    (semi_axis_a*cos(t)*cos(w)-semi_axis_b*sin(t)*sin(w));
     xp{i} = xp0+(semi_axis_a*cos(t)*sin(w)+semi_axis_b*sin(t)*cos(w));
     
     % normalized phase space
@@ -93,24 +96,24 @@ for i=1:length(alpha)
     axis equal
 end
     % add x,y label 
-sub1.XLabel.String = h_label;
-sub1.YLabel.String = v_label;
-sub2.XLabel.String = h1_label;
-sub2.YLabel.String = v1_label;
+    sub1.XLabel.String = h_label;
+    sub1.YLabel.String = v_label;
+    sub2.XLabel.String = h1_label;
+    sub2.YLabel.String = v1_label;
 
     % output in structure form
-    ellipse.geo = struct('h',{x},'v',{xp});
-    ellipse.norm = struct('h',{x1},'v',{xp1});
+    output.geo = struct('h',{x},'v',{xp});
+    output.norm = struct('h',{x1},'v',{xp1});
 
 legend(textlg,'Location','eastoutside');
-%   test with ezplot
-%     figure;
-% for i=1:1
-%     x1 = sym('x1');
-%     xp1 = sym('xp1');
-%     ezplot(a*(x1.^2) + 2*b*x1*xp1 + c*(xp1.^2)+g);
-%     hold on;
-%     axis equal
-% end
+    %   test with ezplot
+    %     figure;
+    % for i=1:1
+    %     x1 = sym('x1');
+    %     xp1 = sym('xp1');
+    %     ezplot(a*(x1.^2) + 2*b*x1*xp1 + c*(xp1.^2)+g);
+    %     hold on;
+    %     axis equal
+    % end
 end
 
