@@ -19,4 +19,4 @@ ellipse_y = ellipse_phasespace(slice_emit,'y',200);
 
 % matlab structure
 mainfig = figure;
-mainfig.Position = [50,100,1500,400];
+mainfig.Position = [0,200,1000,400];
