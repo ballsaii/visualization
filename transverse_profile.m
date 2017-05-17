@@ -3,7 +3,8 @@
 close all;clear;clc
 
 % load example
-load 'data.mat';
+data = import_par(2);
+% load('data.mat')
 
 % sliced_data = slice_dist(data,'Emin','Emax',10);
 projected_data = slice_dist(data,'Emin','Emax',1);

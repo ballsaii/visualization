@@ -3,8 +3,7 @@
 close all;clear;clc
 
 % load example
-load 'data.mat';
-
+data = import_par(2);
 % slice dist
 sliced_data = slice_dist(data,{80},'Emax',5);
 % projected_data = slice_dist(data,'Emin','Emax',1);
@@ -44,30 +43,25 @@ end
 clor = linspecer(length(sliced_data));
 
 for i=1:length(sliced_data)
-scatter(ax(1),transverse_phasespace.geo.x.h{i},transverse_phasespace.geo.x.v{i},'.','MarkerEdgeColor',clor(i,:));
-hold(ax(1),'on');
-plot(ax(2),ellipse_x.geo.h{i},ellipse_x.geo.v{i},'-','Color',clor(i,:));
-hold(ax(2),'on');
+    scatter(ax(1),transverse_phasespace.geo.x.h{i},transverse_phasespace.geo.x.v{i},'.','MarkerEdgeColor',clor(i,:));
+    hold(ax(1),'on');
+    plot(ax(2),ellipse_x.geo.h{i},ellipse_x.geo.v{i},'-','Color',clor(i,:));
+    hold(ax(2),'on');
 
-scatter(ax(3),-transverse_phasespace.norm.x.h{i},transverse_phasespace.norm.x.v{i},'.','MarkerEdgeColor',clor(i,:));
-hold(ax(3),'on');
-plot(ax(4),ellipse_x.norm.h{i},ellipse_x.norm.v{i},'-','Color',clor(i,:));
-hold(ax(4),'on');
+    scatter(ax(3),transverse_phasespace.norm.x.h{i},transverse_phasespace.norm.x.v{i},'.','MarkerEdgeColor',clor(i,:));
+    hold(ax(3),'on');
+    plot(ax(4),ellipse_x.norm.h{i},ellipse_x.norm.v{i},'-','Color',clor(i,:));
+    hold(ax(4),'on');
 
-end
+    scatter(ax(5),transverse_phasespace.geo.y.h{i},transverse_phasespace.geo.y.v{i},'.','MarkerEdgeColor',clor(i,:));
+    hold(ax(5),'on');
+    plot(ax(6),ellipse_y.geo.h{i},ellipse_y.geo.v{i},'-','Color',clor(i,:));
+    hold(ax(6),'on');
 
-
-
-for i=1:length(sliced_data)
-scatter(ax(5),transverse_phasespace.geo.y.h{i},transverse_phasespace.geo.y.v{i},'.','MarkerEdgeColor',clor(i,:));
-hold(ax(5),'on');
-plot(ax(6),ellipse_y.geo.h{i},ellipse_y.geo.v{i},'-','Color',clor(i,:));
-hold(ax(6),'on');
-
-scatter(ax(7),-transverse_phasespace.norm.y.h{i},transverse_phasespace.norm.y.v{i},'.','MarkerEdgeColor',clor(i,:));
-hold(ax(7),'on');
-plot(ax(8),ellipse_y.norm.h{i},ellipse_y.norm.v{i},'-','Color',clor(i,:));
-hold(ax(8),'on');
+    scatter(ax(7),transverse_phasespace.norm.y.h{i},transverse_phasespace.norm.y.v{i},'.','MarkerEdgeColor',clor(i,:));
+    hold(ax(7),'on');
+    plot(ax(8),ellipse_y.norm.h{i},ellipse_y.norm.v{i},'-','Color',clor(i,:));
+    hold(ax(8),'on');
 
     % add legend
     textlg{i} = sprintf('%d',i);

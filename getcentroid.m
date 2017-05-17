@@ -26,7 +26,7 @@ hold on;
 plot(xPlot,yPlot,'Color',color,'LineStyle',linsty)
 
 % find peak and its location
-[pk,loc] = findpeaks(yPlot,xPlot);
+[pk,loc] = findpeaks(yPlot,xPlot,'MinPeakHeight',rms(yPlot));
 
 
 % plot peak
