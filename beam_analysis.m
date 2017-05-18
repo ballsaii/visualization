@@ -55,7 +55,7 @@ hold on;
 fakelegend(1) = plot(NaN,NaN,'LineStyle',fittingstyle,'Color',fittingcolor);
 
 % fit centroid horizontal
-loc_h = max(getcentroid(x,p2.NumBins,fittingstyle,fittingcolor));
+loc_h = getcentroid(x,p2.NumBins,fittingstyle,fittingcolor);
 %fakelg1 = legend(sub2,fakelegend(1),'horizontal dist.');
 
 % add legend
@@ -72,7 +72,7 @@ hold on;
 fakelegend(2) = plot(NaN,NaN,'LineStyle',fittingstyle,'Color',fittingcolor);
 
 % fit centroid horizontal
-loc_v = max(getcentroid(y,p3.NumBins,fittingstyle,fittingcolor));
+loc_v = getcentroid(y,p3.NumBins,fittingstyle,fittingcolor);
 %fakelg1 = legend(sub2,fakelegend(1),'horizontal dist.');
 
 % add legend
