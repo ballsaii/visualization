@@ -8,6 +8,10 @@ close all;clear
 % load 'data.mat'
 %% Calculation
 
+numerofslice = 5;
+slice_Emin = {80};
+project_Emin = {95};
+
 % sliced and projected dist. 
 sliced_data = slice_dist(data,{80},'Emax',5);
 projected_data = slice_dist(data,{95},'Emax',1);
@@ -51,7 +55,7 @@ hold on;
 fakelegend(1) = plot(NaN,NaN,'LineStyle',fittingstyle,'Color',fittingcolor);
 
 % fit centroid horizontal
-loc_h = getcentroid(x,p2.NumBins,fittingstyle,fittingcolor);
+loc_h = max(getcentroid(x,p2.NumBins,fittingstyle,fittingcolor));
 %fakelg1 = legend(sub2,fakelegend(1),'horizontal dist.');
 
 % add legend
@@ -68,7 +72,7 @@ hold on;
 fakelegend(2) = plot(NaN,NaN,'LineStyle',fittingstyle,'Color',fittingcolor);
 
 % fit centroid horizontal
-loc_v = getcentroid(y,p3.NumBins,fittingstyle,fittingcolor);
+loc_v = max(getcentroid(y,p3.NumBins,fittingstyle,fittingcolor));
 %fakelg1 = legend(sub2,fakelegend(1),'horizontal dist.');
 
 % add legend
@@ -272,6 +276,8 @@ yp = projected_data{1}(:,4); % unit in mrad
 % already load x y projected_Ek projected_time
 parmela_loca = sprintf('parmela target = %s',location);
 disp(parmela_loca)
+fprintf('projected by energy = %i\n',cell2mat(project_Emin));
+fprintf('sliced by energy = %i and number slice = %i\n',cell2mat(slice_Emin),numerofslice);
 % mean value
 meanvalue = mean([x,xp,y,yp,projected_time,projected_Ek]);
 rmsvalue = rms([x,xp,y,yp,projected_time,projected_Ek]);
