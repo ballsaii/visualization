@@ -1,20 +1,16 @@
+function beam_analysis(ii,project_Emin,slice_Emin,numerofslice) 
 %% usage
 % visualize beam analysis
-close all;clear
 
 % load example
-[data,location] = import_par(2);
+[data,location] = import_par(ii);
 
 % load 'data.mat'
 %% Calculation
 
-numerofslice = 5;
-slice_Emin = {80};
-project_Emin = {95};
-
 % sliced and projected dist. 
-sliced_data = slice_dist(data,{80},'Emax',5);
-projected_data = slice_dist(data,{95},'Emax',1);
+sliced_data = slice_dist(data,slice_Emin,'Emax',numerofslice);
+projected_data = slice_dist(data,project_Emin,'Emax',1);
 
 % calculate emit, normalized phasespace and phase ellipse
 slice_emit = get_emit(sliced_data);
@@ -46,7 +42,7 @@ view(2);
 
 % subplot 2 for horizontal
 sub2 = subplot(1,3,2);
-p2 = histogram(x,'visible','on');
+p2 = histogram(x,'visible','on','BinMethod','fd');
 fittingstyle = '-.';
 fittingcolor = 'red';
 hold on;
@@ -64,7 +60,7 @@ hold off;
 
 % subplot 3 for vertical
 sub3 = subplot(1,3,3);
-p3 = histogram(y,'visible','on');
+p3 = histogram(y,'visible','on','BinMethod','fd');
 fittingstyle = '-.';
 fittingcolor = 'red';
 hold on;
@@ -80,7 +76,7 @@ lg2 = legend(sub3,[p3,fakelegend(2)],'vertical dist','fitting dist');
 
 hold off;
 set([lg1,lg2],'Location','southeast','Orientation','horizontal');
-set([p2,p3],'EdgeColor','black','EdgeAlpha',0.1,'DisplayStyle','bar','BinMethod','scott','LineWidth',0.5,'visible','on');
+set([p2,p3],'EdgeColor','black','EdgeAlpha',0.1,'DisplayStyle','bar','LineWidth',0.5,'visible','on');
 
 set(sub3,'ylim',get(sub2,'ylim'));
 set([sub2,sub3],'XTick',get(sub1,'XTick'));
@@ -274,10 +270,7 @@ clc
 xp = projected_data{1}(:,2); % unit in mrad
 yp = projected_data{1}(:,4); % unit in mrad
 % already load x y projected_Ek projected_time
-parmela_loca = sprintf('parmela target = %s',location);
-disp(parmela_loca)
-fprintf('projected by energy = %i\n',cell2mat(project_Emin));
-fprintf('sliced by energy = %i and number slice = %i\n',cell2mat(slice_Emin),numerofslice);
+
 % mean value
 meanvalue = mean([x,xp,y,yp,projected_time,projected_Ek]);
 rmsvalue = rms([x,xp,y,yp,projected_time,projected_Ek]);
@@ -295,6 +288,7 @@ fprintf('rms y = %5.3f mm\n',rmsvalue(3));
 fprintf('rms yp = %5.3f mrad\n',rmsvalue(4));
 fprintf('rms time = %5.3E ns\n',rmsvalue(5));
 fprintf('rms Ek = %5.3f MeV\n',rmsvalue(6));
+fprintf('max Ek = %5.3f MeV\n',max(projected_Ek));
 fprintf('=============\n');
 fprintf('centroid x = %5.3f mm\n',loc_h);
 fprintf('centroid y = %5.3f mm\n',loc_v);
@@ -310,8 +304,13 @@ fprintf('norm emit x = %5.3f mm mrad \n',projected_emit.norm.x{1}.*1E6);
 fprintf('norm emit y = %5.3f mm mrad \n',projected_emit.norm.y{1}.*1E6);
 fprintf('norm emit xy = %5.3f mm mrad \n',projected_emit.norm.xy{1}.*1E6);
 fprintf('==========================\n');
-
-
+parmela_loca = sprintf('parmela target = %s',location);
+disp(parmela_loca)
+fprintf('projected by energy = %i\n',cell2mat(project_Emin));
+fprintf('sliced by energy = %i and number slice = %i\n',cell2mat(slice_Emin),numerofslice);
+fprintf('==========================\n');
+fprintf('==========================\n');
+end
 
 
 

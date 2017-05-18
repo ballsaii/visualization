@@ -27,7 +27,8 @@ plot(xPlot,yPlot,'Color',color,'LineStyle',linsty)
 
 % find peak and its location
 [pk,loc] = findpeaks(yPlot,xPlot,'MinPeakHeight',rms(yPlot));
-loc = loc(find(pk==max(pk)))
+loc = loc(find(pk==max(pk)));
+pk=max(pk);
 
 % plot peak
 plot(loc,pk*1.01,'MarkerFaceColor',color,'Marker','v','MarkerEdgeColor','none')
