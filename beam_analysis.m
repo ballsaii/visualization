@@ -3,9 +3,9 @@ function beam_analysis(ii,project_Emin,slice_Emin,numerofslice)
 % visualize beam analysis
 
 % load example
-% [data,location] = import_par(ii);
+[data,location] = import_par(ii);
 
-load 'data.mat'
+% load 'data.mat'
 %% Calculation
 
 % sliced and projected dist. 
