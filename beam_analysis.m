@@ -3,9 +3,9 @@ function beam_analysis(ii,project_Emin,slice_Emin,numerofslice)
 % visualize beam analysis
 
 % load example
-[data,location] = import_par(ii);
+% [data,location] = import_par(ii);
 
-% load 'data.mat'
+load 'data.mat'
 %% Calculation
 
 % sliced and projected dist. 
@@ -166,11 +166,11 @@ f2.Position = [50,100,1500,400];
 
 % load
 projected_phase = projected_data{1}(:,5);
-projected_time = phase2time(projected_phase,2856); % unit in ns
+projected_time = phase2time(projected_phase,2856)*1E3; % unit in ps
 projected_Ek = projected_data{1}(:,6); % unit in MeV
 for i=1:length(sliced_data)
 sliced_phase{i} = sliced_data{i}(:,5);
-sliced_time{i} = phase2time(sliced_phase{i},2856); % unit in ns
+sliced_time{i} = phase2time(sliced_phase{i},2856)*1E3; % unit in ps
 sliced_Ek{i} = sliced_data{i}(:,6); % unit in MeV
 end
 
@@ -203,15 +203,32 @@ set(ax2(4),'Xlim',get(ax2(1),'Xlim'),'Ylim',get(ax2(1),'Ylim'));
 set(ax2(5),'Xlim',get(ax2(2),'Xlim'));
 set(ax2(6),'Xlim',get(ax2(3),'Xlim'));
 
+% x y label
+xlabel(ax2(1),'time (ps)');
+ylabel(ax2(1),'Ek (MeV)');
 
+xlabel(ax2(2),'time (ps)');
+ylabel(ax2(2),'count');
+
+xlabel(ax2(3),'Energy (MeV)');
+ylabel(ax2(3),'count');
+
+xlabel(ax2(4),'time (ps)');
+ylabel(ax2(4),'Ek (MeV)');
+
+xlabel(ax2(5),'time (ps)');
+ylabel(ax2(5),'count');
+
+xlabel(ax2(6),'Energy (MeV)');
+ylabel(ax2(6),'count');
 %% Sliced Emittance
 % figure
 f3 = figure;
 f3.Position = [50,100,800,600];
 
 % plot
-for j=1:4
-    ax3(j) = subplot(2,2,j);
+for j=1:6
+    ax3(j) = subplot(2,3,j);
 end
 clor = linspecer(length(sliced_data));
 
@@ -240,18 +257,25 @@ clor = linspecer(length(sliced_data));
     ylabel(ax3(3),'normalized emittance (mm mrad)');
 
     spb1 = bar(ax3(4),slice_index,cell2mat(slice_emit.slice.macroparticle).*chargepermacro*1E9);
-    ylabel('charge (nC)');
+    ylabel(ax3(4),'charge (nC)');
+    
+    sp7 = plot(ax3(5),slice_index,cellfun(@std,sliced_Ek),'Marker','*','LineStyle','-');
+    ylabel(ax3(5),'\sigma_{E_{k}} (MeV))');
+    
+    sp8 = plot(ax3(6),slice_index,cellfun(@mean,sliced_Ek),'Marker','+','LineStyle','-');
+    ylabel(ax3(6),'mean energy (MeV)');
+    
     % x label
-    for i =[1,2,3,4]
+    for i =[1,2,3,4,5,6]
     ax3(i).XLabel.String = 'Slice index';
     end
     
-for j=1:4
+for j=1:6
     grid(ax3(j),'on');
     grid(ax3(j),'minor');
     ax3(j).FontSize = 10;
     ax3(j).FontWeight = 'bold';
-    ax3(j).LineWidth = 1.2;
+    ax3(j).LineWidth = 1.5;
     ax3(j).XTick = slice_index;
     lg2(j) = legend('show');
     lg2(j).Interpreter = 'tex';
@@ -260,9 +284,9 @@ for j=1:4
 end
     
     lg2(1) = legend(ax3(1),'\epsilon_x','\epsilon_{Nx}');
-    lg2(2) = legend(ax3(2),'\epsilon_x','\epsilon_{Nx}');
+    lg2(2) = legend(ax3(2),'\epsilon_y','\epsilon_{Ny}');
     lg2(3) = legend(ax3(3),'\epsilon_{xy}','\epsilon_{Nxy}');
-    legend(ax3(4),'off');
+    legend(ax3(4),'off');legend(ax3(5),'off');legend(ax3(6),'off');
 
 %% Beam statistic
 clc
