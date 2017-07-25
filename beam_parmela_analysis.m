@@ -1,4 +1,4 @@
-function beam_analysis(ii,project_Emin,slice_Emin,numerofslice) 
+function beam_parmela_analysis(ii,project_Emin,slice_Emin,numerofslice) 
 %% usage
 % visualize beam analysis
 
@@ -287,7 +287,10 @@ end
     lg2(2) = legend(ax3(2),'\epsilon_y','\epsilon_{Ny}');
     lg2(3) = legend(ax3(3),'\epsilon_{xy}','\epsilon_{Nxy}');
     legend(ax3(4),'off');legend(ax3(5),'off');legend(ax3(6),'off');
-
+    
+    loca2 = fileparts(location);
+    savefile = fullfile(loca2,'stat.mat');
+    save(savefile)
 %% Beam statistic
 clc
 % load
